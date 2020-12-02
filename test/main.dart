@@ -1,16 +1,16 @@
-import 'package:2020/2020.dart';
+import 'package:aoc2020/main.dart';
 import 'package:test/test.dart';
 
 void main() {
   group('A group of tests', () {
-    Awesome awesome;
+    Days days;
 
     setUp(() {
-      awesome = Awesome();
+      days = Days();
     });
 
     test('First Test', () {
-      expect(awesome.isAwesome, isTrue);
+      expect(true, isTrue);
     });
   });
 }

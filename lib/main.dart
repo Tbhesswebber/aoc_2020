@@ -1,6 +1,4 @@
 import 'package:aoc2020/src/three/three.dart';
-import 'package:aoc2020/src/three/three.dart';
-import 'package:aoc2020/src/three/three.dart';
 import 'dart:io';
 import 'package:aoc2020/src/day.dart';
 import 'package:aoc2020/src/one/one.dart';
@@ -11,10 +9,8 @@ class Days {
 
   Days() {
     register(3, Three());
-    register(3, Three());
-    register(3, Three());
-    register(1, One());
     register(2, Two());
+    register(1, One());
   }
 
   Future<dynamic> run(int dayNumber, int part) async {

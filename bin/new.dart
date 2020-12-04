@@ -10,8 +10,8 @@ void main(List<String> args) {
   var libPath = Directory.current.path + '/lib';
   var inputPath = libPath + '/inputs';
 
-  File(inputPath + '/$day-1.json').createSync();
-  File(inputPath + '/$day-2.json').createSync();
+  File(inputPath + '/$day-1.txt').createSync();
+  File(inputPath + '/$day-2.txt').createSync();
 
   var problemPath = libPath + '/src';
   var solutionDirPath = problemPath + '/$dayStr';
@@ -21,43 +21,54 @@ void main(List<String> args) {
   ;
   Directory(testDirPath).createSync();
   File(testPath).createSync();
+  File(testPath).writeAsStringSync(
+    [
+      'import \'package:test/test.dart\'',
+      '',
+      'void main() {',
+      '',
+      '}',
+    ].join('\n'),
+  );
   Directory(solutionDirPath).createSync();
   File(solutionPath).create().then((file) {
-    file.writeAsString([
-      'import \'../day.dart\';',
-      '',
-      'class $DayStr extends Day<List<OneArg>, List<TwoArg>> {',
-      '',
-      '  @override',
-      '  List<OneArg> deserializeOneArgs(String args) {',
-      '    // TODO: implement deserializeOneArgs',
-      '    throw UnimplementedError();',
-      '}',
-      '',
-      '  @override',
-      '  one(args) {',
-      '    // TODO: implement one',
-      '    throw UnimplementedError();',
-      '  }',
-      '',
-      '  @override',
-      '  List<TwoArg> deserializeTwoArgs(String args) {',
-      '    // TODO: implement deserializeTwoArgs',
-      '    throw UnimplementedError();',
-      '}',
-      '',
-      '  @override',
-      '  two(args) {',
-      '    // TODO: implement one',
-      '    throw UnimplementedError();',
-      '  }',
-      '',
-      '}',
-      '',
-      'class OneArg {}',
-      '',
-      'class TwoArg {}'
-    ].join('\n'));
+    file.writeAsString(
+      [
+        'import \'../day.dart\';',
+        '',
+        'class $DayStr extends Day<List<OneArg>, List<TwoArg>> {',
+        '',
+        '  @override',
+        '  List<OneArg> deserializeOneArgs(String args) {',
+        '    // TODO: implement deserializeOneArgs',
+        '    throw UnimplementedError();',
+        '}',
+        '',
+        '  @override',
+        '  int one(args) {',
+        '    // TODO: implement one',
+        '    throw UnimplementedError();',
+        '  }',
+        '',
+        '  @override',
+        '  List<TwoArg> deserializeTwoArgs(String args) {',
+        '    // TODO: implement deserializeTwoArgs',
+        '    throw UnimplementedError();',
+        '}',
+        '',
+        '  @override',
+        '  int two(args) {',
+        '    // TODO: implement one',
+        '    throw UnimplementedError();',
+        '  }',
+        '',
+        '}',
+        '',
+        'class OneArg {}',
+        '',
+        'class TwoArg {}'
+      ].join('\n'),
+    );
   });
 
   var mainFile = File(libPath + '/main.dart');

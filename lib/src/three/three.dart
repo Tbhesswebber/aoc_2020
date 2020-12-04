@@ -1,33 +1,100 @@
 import '../day.dart';
 
-class Three extends Day<List<OneArg>, List<TwoArg>> {
-
+class Three extends Day<Mountain, Mountain> {
   @override
-  List<OneArg> deserializeOneArgs(String args) {
-    // TODO: implement deserializeOneArgs
-    throw UnimplementedError();
-}
-
-  @override
-  one(args) {
-    // TODO: implement one
-    throw UnimplementedError();
+  Mountain deserializeOneArgs(String args) {
+    return Mountain(args.split('\n'));
   }
 
   @override
-  List<TwoArg> deserializeTwoArgs(String args) {
-    // TODO: implement deserializeTwoArgs
-    throw UnimplementedError();
-}
-
-  @override
-  two(args) {
-    // TODO: implement one
-    throw UnimplementedError();
+  int one(mountain) {
+    var slope = Slope(x: 3);
+    return countTrees(slope, mountain);
   }
 
+  int countTrees(Slope slope, Mountain mountain) {
+    var trees = 0;
+    slope.traverse(mountain, (arg, x, y) {
+      if (arg.isTree(x)) {
+        trees += 1;
+      }
+    });
+
+    return trees;
+  }
+
+  @override
+  Mountain deserializeTwoArgs(String args) {
+    return Mountain(args.split('\n'));
+  }
+
+  @override
+  int two(args) {
+    var slopes = [
+      Slope(x: 1),
+      Slope(x: 3),
+      Slope(x: 5),
+      Slope(x: 7),
+      Slope(x: 1, y: 2),
+    ];
+
+    return slopes.fold(1, (previousValue, slope) {
+      return previousValue * countTrees(slope, args);
+    });
+  }
 }
 
-class OneArg {}
+class ListLike<T> {
+  final List<T> _values;
 
-class TwoArg {}
+  ListLike(dynamic values) : _values = values;
+
+  T operator [](int index) {
+    return _values[index];
+  }
+
+  int get length {
+    return _values.length;
+  }
+}
+
+class Mountain extends ListLike<Elevation> {
+  Mountain(List<String> rows) : super(rows.map((e) => Elevation(e)).toList());
+
+  bool isTree(x, y) {
+    return super._values[y].isTree(x);
+  }
+}
+
+class Elevation extends ListLike<String> {
+  Elevation(String values) : super(values.split(''));
+
+  bool isTree(x) {
+    return super._values[x] == '#';
+  }
+}
+
+class Slope {
+  final int x;
+  final int y;
+
+  Slope({this.x, this.y = 1});
+
+  void traverse(
+    Mountain mountain,
+    void Function(Elevation arg, int x, int y) callback,
+  ) {
+    var _currentX = 0;
+    var _currentY = 0;
+    var height = mountain.length;
+    var width = mountain[0].length;
+    while (_currentY < mountain.length) {
+      callback(mountain[_currentY], _currentX, _currentY);
+      _currentX += x;
+      _currentY += y;
+      if (_currentY < height && _currentX >= width) {
+        _currentX -= mountain[_currentY].length;
+      }
+    }
+  }
+}

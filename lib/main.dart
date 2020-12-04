@@ -17,7 +17,11 @@ class Days {
     Day.validate(part);
     var inputPath =
         Directory.current.path + '/lib/inputs/$dayNumber-$part.json';
-    dynamic input = await File(inputPath).readAsString();
+    String input = await File(inputPath).readAsString();
+    if (part == 2 && input.isEmpty) {
+      inputPath = Directory.current.path + '/lib/inputs/$dayNumber-1.json';
+      input = await File(inputPath).readAsString();
+    }
     return _days[dayNumber].run(part, input);
   }
 

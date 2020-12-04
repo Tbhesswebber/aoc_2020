@@ -9,18 +9,7 @@ class Three extends Day<Mountain, Mountain> {
   @override
   int one(mountain) {
     var slope = Slope(x: 3);
-    return countTrees(slope, mountain);
-  }
-
-  int countTrees(Slope slope, Mountain mountain) {
-    var trees = 0;
-    slope.traverse(mountain, (arg, x, y) {
-      if (arg.isTree(x)) {
-        trees += 1;
-      }
-    });
-
-    return trees;
+    return mountain.countTrees(slope);
   }
 
   @override
@@ -39,7 +28,7 @@ class Three extends Day<Mountain, Mountain> {
     ];
 
     return slopes.fold(1, (previousValue, slope) {
-      return previousValue * countTrees(slope, args);
+      return previousValue * args.countTrees(slope);
     });
   }
 }
@@ -63,6 +52,17 @@ class Mountain extends ListLike<Elevation> {
 
   bool isTree(x, y) {
     return super._values[y].isTree(x);
+  }
+
+  int countTrees(Slope slope) {
+    var trees = 0;
+    slope.traverse(this, (arg, x, y) {
+      if (arg.isTree(x)) {
+        trees += 1;
+      }
+    });
+
+    return trees;
   }
 }
 

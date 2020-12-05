@@ -1,3 +1,4 @@
+import 'package:aoc2020/src/five/five.dart';
 import 'package:aoc2020/src/four/four.dart';
 import 'package:aoc2020/src/three/three.dart';
 import 'dart:io';
@@ -9,6 +10,7 @@ class Days {
   final Map<int, Day> _days = {};
 
   Days() {
+    register(5, Five());
     register(4, Four());
     register(3, Three());
     register(2, Two());

@@ -87,23 +87,16 @@ int binarySearchInRange(
   int max,
   int min = 0,
 }) {
-  if (min == max - 1) return max;
-
   var currentMax = max;
   var currentMin = min;
-  var currentDirection = locator[0];
+  var directions = locator.split('');
+  directions.forEach((element) {
+    if (element == frontHalfIndicator) {
+      currentMax = (currentMax - ((currentMax - currentMin) / 2)).floor();
+    } else {
+      currentMin = (((currentMax - currentMin) / 2) + currentMin).floor();
+    }
+  });
 
-  if (currentDirection == frontHalfIndicator) {
-    currentMax = (currentMax - ((currentMax - currentMin) / 2)).floor();
-  } else {
-    currentMin = (((currentMax - currentMin) / 2) + currentMin).floor();
-  }
-
-  return binarySearchInRange(
-    locator.substring(1),
-    frontHalfIndicator: frontHalfIndicator,
-    backHalfIndicator: backHalfIndicator,
-    max: currentMax,
-    min: currentMin,
-  );
+  return currentMax;
 }

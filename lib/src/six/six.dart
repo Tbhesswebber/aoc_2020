@@ -1,30 +1,33 @@
+import 'package:aoc2020/utils/args.dart';
+import 'package:aoc2020/utils/math.dart';
+
 import '../day.dart';
 
 class Six extends Day<List<Group>, List<Group>> {
   @override
   List<Group> deserializeOneArgs(String args) {
-    var groupResponses = args.split('\n\n');
-    return groupResponses.map((e) => Group(e)).toList();
+    return splitOnDoubleBlankAndConvert(args, to: (e) => Group(e));
   }
 
   @override
   int one(args) {
-    return args.fold(0, (count, group) {
-      return count + group.uniqueAnswers.length;
-    });
+    return Math.arraySum(
+      args,
+      transform: (group) => group.uniqueAnswers.length,
+    );
   }
 
   @override
   List<Group> deserializeTwoArgs(String args) {
-    var groupResponses = args.split('\n\n');
-    return groupResponses.map((e) => Group(e)).toList();
+    return splitOnDoubleBlankAndConvert(args, to: (e) => Group(e));
   }
 
   @override
   int two(args) {
-    return args.fold(0, (count, group) {
-      return count + group.groupAnswers.length;
-    });
+    return Math.arraySum(
+      args,
+      transform: (group) => group.groupAnswers.length,
+    );
   }
 }
 
@@ -53,7 +56,7 @@ class Group {
   }
 
   Set<String> get uniqueAnswers {
-    return members.fold(Set(), (answers, person) {
+    return members.fold(<String>{}, (answers, person) {
       person.answers.forEach((element) {
         answers.add(element);
       });

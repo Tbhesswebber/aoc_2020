@@ -23,7 +23,7 @@ void main(List<String> args) {
   File(testPath).createSync();
   File(testPath).writeAsStringSync(
     [
-      'import \'package:test/test.dart\'',
+      'import \'package:test/test.dart\';',
       '',
       'void main() {',
       '',

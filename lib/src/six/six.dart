@@ -6,7 +6,7 @@ import '../day.dart';
 class Six extends Day<List<Group>, List<Group>> {
   @override
   List<Group> deserializeOneArgs(String args) {
-    return splitOnDoubleBlankAndConvert(args, to: (e) => Group(e));
+    return splitOnBlankLineAndConvert(args, to: (e) => Group(e));
   }
 
   @override
@@ -19,7 +19,7 @@ class Six extends Day<List<Group>, List<Group>> {
 
   @override
   List<Group> deserializeTwoArgs(String args) {
-    return splitOnDoubleBlankAndConvert(args, to: (e) => Group(e));
+    return splitOnBlankLineAndConvert(args, to: (e) => Group(e));
   }
 
   @override
@@ -35,7 +35,7 @@ class Group {
   final List<Person> members;
 
   Group(String responses)
-      : members = splitOnBlankAndConvert(responses, to: (res) => Person(res));
+      : members = splitOnLineAndConvert(responses, to: (res) => Person(res));
 
   int get size {
     return members.length;

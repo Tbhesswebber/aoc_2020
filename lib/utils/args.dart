@@ -8,14 +8,14 @@ List<T> splitAndConvert<T>(
   return args.split(pattern).map(to).toList();
 }
 
-List<T> splitOnBlankAndConvert<T>(
+List<T> splitOnLineAndConvert<T>(
   String args, {
   @required T Function(String a) to,
 }) {
   return args.split('\n').map(to).toList();
 }
 
-List<T> splitOnDoubleBlankAndConvert<T>(
+List<T> splitOnBlankLineAndConvert<T>(
   String args, {
   @required T Function(String a) to,
 }) {
